@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="{% static 'privacypolicy/home.css' %}">
+
+ <script>
+    function openNav() 
+    {
+        document.getElementById("mySidenav").style.width = "25%";
+    }
+
+    function closeNav() 
+    {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+   
+</head>
+
+
+<body>
+    
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="">Home</a>
+        <a href="{% url 'input' %}">Privacy Policy Compliance</a>
+        <a href="{% url 'aboutus' %}">About Us</a>
+        <a href="#">QnA's</a>
+    </div>
+
+    <div class="nav-icon">
+        <span style="font-size:40px; cursor:pointer;" onclick="openNav()">&#9776;</span>
+    </div>
+
+    <div class="image">
+        <img src="{% static 'privacypolicy/logo.jpg'%}">
+    </div>
+
+    <div class="non-image">
+        <div class="non-image1">
+            <h1>PPCompliance</h1>
+            <h4>We Help You Ease Read Privacy Policies. </h4> 
+            <button class="btn">
+                <i class="fa fa-pinterest-p"></i> Privacy Compliance
+            </button>
+        </div>    
+        
+        <div class="non-image2">
+            <br><br>
+            <h1>Our Motivation - Ease Of Privacy</h1>
+            <hr>
+            <div class="p1"><img src="{% static 'privacypolicy/p1.png'%}"></div>
+            <div class="p2"><img src="{% static 'privacypolicy/p2.png'%}"></div>
+        </div>
+
+        <div class="non-image3">
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <h1>About Us</h1><hr>
+            <p>We are a group of enthusiasts working to help people understand privacy policies better. Users can understand the privacy policies with a summarized and easy view. Policies can be graded based on various privacy guidelines. Data collection, Thired party sharing to name a few. Allyou have to do is enter the link of the webpage hosting the privacy policy tobe read.</p><br><br>
+            <button class="btn">
+                <i class="fa fa-adn"></i> About Us
+            </button>
+        </div>
+
+    </div>
+
+</body>
+</html> 
