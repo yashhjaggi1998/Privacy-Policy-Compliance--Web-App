@@ -28,8 +28,16 @@ class call_model(APIView):
 			
 			response = WebappConfig.predictor
 			scrapperRef = WebappConfig.scrapper
+			vectorizeRef = WebappConfig.vectorizer
 			text = "The digit is: " + str(response(X_test)[0]) + " - " + weblink
 			pageContent = scrapperRef(weblink)
+			type1Data = vectorizeRef("type1", pageContent)
+			type2Data = vectorizeRef("type2", pageContent)
+			type3Data = vectorizeRef("type3", pageContent)
+			type4Data = vectorizeRef("type4", pageContent)
+			type5Data = vectorizeRef("type5", pageContent)
+			type6Data = vectorizeRef("type6", pageContent)
+			print(type1Data.shape, "\n", type2Data.shape, "\n", type3Data.shape, "\n", type4Data.shape, "\n", type5Data.shape, "\n", type6Data.shape, "\n", )
 			return render(request, "output.html", {'weblink' : weblink, 'pageContent' : pageContent})
 # returning JSON response
 #return JsonResponse(response)

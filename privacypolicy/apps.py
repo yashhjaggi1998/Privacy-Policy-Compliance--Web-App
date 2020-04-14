@@ -3,6 +3,7 @@ import html,pickle
 from pathlib import Path
 import os
 from .Scrapper import Scrapper
+from .Vectorizer import Vectorizer
 
 
 #from privacypolicy.model.fast_bert.prediction import BertClassificationPredictor
@@ -16,8 +17,10 @@ class WebappConfig(AppConfig):
 	
 	loaded_model = pickle.load(open('F:/BE_Project/PrivacyPolicy/privacypolicy/model/new_model.sav', 'rb'))
 	sc = Scrapper()
+	vec = Vectorizer()
 	predictor = loaded_model.predict
 	scrapper = sc.getPage
+	vectorizer = vec.vectorize
 
 class PrivacypolicyConfig(AppConfig):
     name = 'privacypolicy'
