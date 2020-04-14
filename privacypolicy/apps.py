@@ -1,23 +1,23 @@
 from django.apps import AppConfig
-import html,pickle
-from pathlib import Path
 import os
 from .model.Scrapper import Scrapper
-
-
-#from privacypolicy.model.fast_bert.prediction import BertClassificationPredictor
+from .model.Vectorizer import Vectorizer
+from .model.Filterer import Filterer
 
 class WebappConfig(AppConfig):
-    #name = 'logisticRegression'
-    #MODEL_PATH = Path("model")
-    #BERT_PRETRAINED_PATH = Path("model/uncased_L-12_H-768_A-12/")
-    #LABEL_PATH = Path("label/")
-    #predictor = BertClassificationPredictor(model_path = MODEL_PATH/"multilabel-emotion-fastbert-basic.bin", pretrained_path = BERT_PRETRAINED_PATH, label_path = LABEL_PATH, multi_label=True)
-	# loaded_model = pickle.load(open('H:/BE_PROJECT/privacy/privacypolicy/model/new_model.sav', 'rb'))
-	# predictor = loaded_model.predict
-    
+
+	# Scrapper Object Instantiation
 	sc = Scrapper()
-	scrapper = sc.getPage
+	scrapper = sc.getpage
+
+	# Vectorizer Object Instantiation
+	vc = Vectorizer()
+	vectorizer = vc.vectorize
+
+	# Filterer Object Instantiation
+	fm = Filterer()
+	filterer = fm.predict
+
 
 class PrivacypolicyConfig(AppConfig):
-    name = 'privacypolicy'
+	name = 'privacypolicy'
