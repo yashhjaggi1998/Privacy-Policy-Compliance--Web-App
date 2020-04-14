@@ -27,8 +27,10 @@ class call_model(APIView):
 			X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4,random_state=1) 
 			
 			response = WebappConfig.predictor
+			scrapperRef = WebappConfig.scrapper
 			text = "The digit is: " + str(response(X_test)[0]) + " - " + weblink
-			return render(request, "output.html", {'weblink' : weblink, })
+			pageContent = scrapperRef(weblink)
+			return render(request, "output.html", {'weblink' : weblink, 'pageContent' : pageContent})
 # returning JSON response
 #return JsonResponse(response)
 		
