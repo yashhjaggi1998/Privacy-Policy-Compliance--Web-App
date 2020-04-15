@@ -1,8 +1,10 @@
 from django.apps import AppConfig
-import os
+
 from .model.Scrapper import Scrapper
 from .model.Vectorizer import Vectorizer
 from .model.Filterer import Filterer
+from .model.Tokenizer import Tokenizer
+from .model.Grader import Grader
 
 class WebappConfig(AppConfig):
 
@@ -17,6 +19,14 @@ class WebappConfig(AppConfig):
 	# Filterer Object Instantiation
 	fm = Filterer()
 	filterer = fm.predict
+
+	# Tokenizer Object Instantiation
+	tk = Tokenizer()
+	tokenizer = tk.tokenize
+
+	# Grader Object Instantiation
+	gd = Grader()
+	grader = gd.grade
 
 
 class PrivacypolicyConfig(AppConfig):

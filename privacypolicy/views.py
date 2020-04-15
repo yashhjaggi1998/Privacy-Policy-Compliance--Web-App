@@ -36,6 +36,63 @@ class call_model(APIView):
 		type6Filtered = filterRef(vectorizedData[5], pageContent, "type6")
 		return [type1Filtered, type2Filtered, type3Filtered, type4Filtered, type5Filtered, type6Filtered]
 
+	def tokenizeFun(self, filteredData):
+		tokenizerRef = WebappConfig.tokenizer
+		type1Padded = tokenizerRef(filteredData[0], "type1")
+		type2Padded = tokenizerRef(filteredData[1], "type2")
+		type3Padded = tokenizerRef(filteredData[2], "type3")
+		type4Padded = tokenizerRef(filteredData[3], "type4")
+		type5Padded = tokenizerRef(filteredData[4], "type5")
+		type6Padded = tokenizerRef(filteredData[5], "type6")
+		return [type1Padded, type2Padded, type3Padded, type4Padded, type5Padded, type6Padded]
+
+	def gradeFun(self, paddedData):
+		graderRef = WebappConfig.grader
+
+		if len(paddedData[0]) < 10:
+			if len(paddedData[0]) < 5:
+				type1Grade = [0, 0, len(paddedData[0])]
+			else:
+				type1Grade = type1Grade = [0, len(paddedData[0]), 0]
+		else:
+			type1Grade = graderRef(paddedData[0], "type1")
+
+		if len(paddedData[1]) < 10:
+			if len(paddedData[1]) < 5:
+				type2Grade = [0, 0, len(paddedData[1])]
+			else:
+				type2Grade = [0, len(paddedData[1]), 0]
+		else:
+			type2Grade = graderRef(paddedData[1], "type2")
+
+		if len(paddedData[2]) < 2:
+			if len(paddedData[2]) < 1:
+				type3Grade = [0, 0, len(paddedData[2])]
+			else:
+				type3Grade = [0, len(paddedData[2]), 0]
+		else:
+			type3Grade = graderRef(paddedData[2], "type3")
+
+		if len(paddedData[3]) < 10:
+			if len(paddedData[3]) < 5:
+				type4Grade = [0, 0, len(paddedData[3])]
+			else:
+				type4Grade = [0, len(paddedData[3]), 0]
+		else:
+			type4Grade = graderRef(paddedData[3], "type4")
+
+		if len(paddedData[4]) < 1:
+			type5Grade = [0, 0, len(paddedData[4])]
+		else:
+			type5Grade = graderRef(paddedData[4], "type5")
+
+		if len(paddedData[5]) < 1:
+			type6Grade = [0, 0, len(paddedData[5])]
+		else:
+			type6Grade = graderRef(paddedData[5], "type6")
+		
+		return [type1Grade, type2Grade, type3Grade, type4Grade, type5Grade, type6Grade]
+
 	def get(self, request):
 		if request.method == 'GET':
 			# Fetch Link from GUI in string(weblink)
@@ -58,8 +115,18 @@ class call_model(APIView):
 			filteredData = self.filterFun(pageContent, vectorizedData)
 			# print(filteredData[0].shape, "\n", filteredData[1].shape, "\n", filteredData[2].shape, "\n", filteredData[3].shape, "\n", filteredData[4].shape, "\n", filteredData[5].shape, "\n")
 			print("Filtered Successfully")
-			
-			return render(request, "output.html", {'pageContent' : pageSize})
+
+			# Tokenize the filtered Data, Prepare for Grading 
+			paddedData = self.tokenizeFun(filteredData)
+			# print(paddedData[0].shape, "\n", paddedData[1].shape, "\n", paddedData[2].shape, "\n", paddedData[3].shape, "\n", paddedData[4].shape, "\n", paddedData[5].shape, "\n")
+			print("Tokenized Successfully")
+
+			# Grade the Data
+			gradedData = self.gradeFun(paddedData)
+			# print(gradedData[0], "\n", gradedData[1], "\n", gradedData[2], "\n", gradedData[3], "\n", gradedData[4], "\n", gradedData[5], "\n")
+			print("Graded Successfully")
+
+			return render(request, "output.html", {'pageContent' : gradedData, 'lines' : pageSize})
 		
 
 class InputView(TemplateView):
