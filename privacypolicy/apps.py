@@ -1,26 +1,33 @@
 from django.apps import AppConfig
-import html,pickle
-from pathlib import Path
-import os
-from .Scrapper import Scrapper
-from .Vectorizer import Vectorizer
 
-
-#from privacypolicy.model.fast_bert.prediction import BertClassificationPredictor
+from .model.Scrapper import Scrapper
+from .model.Vectorizer import Vectorizer
+from .model.Filterer import Filterer
+from .model.Tokenizer import Tokenizer
+from .model.Grader import Grader
 
 class WebappConfig(AppConfig):
-    #name = 'logisticRegression'
-    #MODEL_PATH = Path("model")
-    #BERT_PRETRAINED_PATH = Path("model/uncased_L-12_H-768_A-12/")
-    #LABEL_PATH = Path("label/")
-    #predictor = BertClassificationPredictor(model_path = MODEL_PATH/"multilabel-emotion-fastbert-basic.bin", pretrained_path = BERT_PRETRAINED_PATH, label_path = LABEL_PATH, multi_label=True)  
-	
-	loaded_model = pickle.load(open('F:/BE_Project/PrivacyPolicy/privacypolicy/model/new_model.sav', 'rb'))
+
+	# Scrapper Object Instantiation
 	sc = Scrapper()
-	vec = Vectorizer()
-	predictor = loaded_model.predict
-	scrapper = sc.getPage
-	vectorizer = vec.vectorize
+	scrapper = sc.getpage
+
+	# Vectorizer Object Instantiation
+	vc = Vectorizer()
+	vectorizer = vc.vectorize
+
+	# Filterer Object Instantiation
+	fm = Filterer()
+	filterer = fm.predict
+
+	# Tokenizer Object Instantiation
+	tk = Tokenizer()
+	tokenizer = tk.tokenize
+
+	# Grader Object Instantiation
+	gd = Grader()
+	grader = gd.grade
+
 
 class PrivacypolicyConfig(AppConfig):
-    name = 'privacypolicy'
+	name = 'privacypolicy'

@@ -66,9 +66,17 @@
 </head>
 <body>
 
+	Grades :: {{pageContent}}<br>
+	Lines :: {{lines}}<br>
+	filterData :: {{filteredData.0}}<br><br>
+	filterData :: {{filteredData.1}}<br><br>
+	filterData :: {{filteredData.2}}<br><br>
+	filterData :: {{filteredData.3}}<br><br>
+	filterData :: {{filteredData.4}}<br><br>
+	filterData :: {{filteredData.5}}<br><br>
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="">Home</a>
+        <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'input' %}">Privacy Policy Compliance</a>
         <a href="{% url 'aboutus' %}">About Us</a>
         <a href="#">QnA's</a>
@@ -88,10 +96,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>90<span>%</span></h2>
+					<h2>{{finalScores.0}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 1 </h2>
+			<h2 class="text"> Data Collection </h2>
 		</div>
 	</div>
 
@@ -103,10 +111,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>60<span>%</span></h2>
+					<h2>{{finalScores.1}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 2 </h2>
+			<h2 class="text"> Third Party Sharing </h2>
 		</div>
 	</div>
 
@@ -118,10 +126,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>50<span>%</span></h2>
+					<h2>{{finalScores.2}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 3 </h2>
+			<h2 class="text"> Data Security </h2>
 		</div>
 	</div>
 </div>
@@ -136,10 +144,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>50<span>%</span></h2>
+					<h2>{{finalScores.3}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 4 </h2>
+			<h2 class="text"> Control over Data </h2>
 		</div>
 	</div>
 
@@ -151,10 +159,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>50<span>%</span></h2>
+					<h2>{{finalScores.4}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 5 </h2>
+			<h2 class="text"> Deletion of Data </h2>
 		</div>
 	</div>
 
@@ -166,10 +174,10 @@
 					<circle cx="70" cy="70" r="70"></circle>
 				</svg>
 				<div class="number">
-					<h2>50<span>%</span></h2>
+					<h2>{{finalScores.5}}<span>%</span></h2>
 				</div>
 			</div>
-			<h2 class="text"> Type 6 </h2>
+			<h2 class="text"> Protection of children </h2>
 		</div>
 	</div>
 </div>
