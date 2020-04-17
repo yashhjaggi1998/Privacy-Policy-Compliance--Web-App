@@ -93,6 +93,31 @@ class call_model(APIView):
 		
 		return [type1Grade, type2Grade, type3Grade, type4Grade, type5Grade, type6Grade]
 
+	def calculateScore(self, gradedData):
+		scores = []
+		color = []
+		low = 8.32
+		mid = 4.99
+		high = 1.66
+
+		for i in range(len(gradedData)):
+			sentenceNum = gradedData[i][0] + gradedData[i][1] + gradedData[i][2]
+			if sentenceNum == 0:
+				scores.append(0)
+				color.append('#39ff14')
+			else:
+				catScore = low * gradedData[i][0] + mid * gradedData[i][1] + high * gradedData[i][2]
+				catScore = int(catScore / sentenceNum * 10)
+				scores.append(catScore)
+				if catScore < 34:
+					color.append('#ff1439')
+				elif catScore < 67:
+					color.append('#1439ff')
+				else:
+					color.append('#39ff14')
+
+		return [scores, color]
+
 	def get(self, request):
 		if request.method == 'GET':
 			# Fetch Link from GUI in string(weblink)
@@ -103,6 +128,7 @@ class call_model(APIView):
 			pageSize = len(pageContent)
 			if pageSize < 10:
 				# Handle Scrapping Unsuccessful here in this if block!! The below statement is temporary
+				print("Scrapping Failure v.1")
 				return render(request, "output.html", {'pageContent' : pageSize})
 			print("Scraped Successfully")
 
@@ -116,6 +142,14 @@ class call_model(APIView):
 			# print(filteredData[0].shape, "\n", filteredData[1].shape, "\n", filteredData[2].shape, "\n", filteredData[3].shape, "\n", filteredData[4].shape, "\n", filteredData[5].shape, "\n")
 			print("Filtered Successfully")
 
+			# Check for scrape v.2
+			totalData = 0
+			for i in range(0, 5):
+				totalData = totalData + len(filteredData[i])
+			if totalData < 6:
+				print("Scrapping Failure v.2")
+				return render(request, "output.html", {'pageContent' : pageSize})
+
 			# Tokenize the filtered Data, Prepare for Grading 
 			paddedData = self.tokenizeFun(filteredData)
 			# print(paddedData[0].shape, "\n", paddedData[1].shape, "\n", paddedData[2].shape, "\n", paddedData[3].shape, "\n", paddedData[4].shape, "\n", paddedData[5].shape, "\n")
@@ -126,8 +160,15 @@ class call_model(APIView):
 			# print(gradedData[0], "\n", gradedData[1], "\n", gradedData[2], "\n", gradedData[3], "\n", gradedData[4], "\n", gradedData[5], "\n")
 			print("Graded Successfully")
 
-			return render(request, "output.html", {'pageContent' : gradedData, 'lines' : pageSize})
-		
+			# Calculate final scores
+			finalOutput = self.calculateScore(gradedData)
+			finalScores = finalOutput[0]
+			finalColor = finalOutput[1]
+			# print(finalScores)
+			print("All Done!!!!")
+			
+			return render(request, "output.html", {'pageContent' : gradedData, 'lines' : pageSize, 'finalScores' : finalScores, 'finalColor' : finalColor})
+
 
 class InputView(TemplateView):
 	template_name = "input.html"
