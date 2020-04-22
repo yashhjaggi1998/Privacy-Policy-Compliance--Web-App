@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Privacy Policy - Input</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="{% static 'privacypolicy/navbar.css' %}" type="text/css">
+	<link rel="icon"  type="image/gif" href="{% static 'privacypolicy/logo.jpg' %}">
+	<meta charset="utf-8">
+	
+	<script>
+    function openNav() 
+    {
+        document.getElementById("mySidenav").style.width = "25%";
+    }
+
+    function closeNav() 
+    {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+    </script>
+
+</head>
+
+
+<body>
+	<div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'input' %}">Privacy Policy Compliance</a>
+        <a href="{% url 'aboutus' %}">About Us</a>
+        <a href="#">QnA's</a>
+    </div>
+
+    <div class="nav-icon">
+        <span style="font-size:40px; cursor:pointer;" onclick="openNav()">&#9776;</span>
+    </div>
+
+<div class="non-nav">
+	
+	<div class = "image">
+		<img src="{% static 'privacypolicy/logo.jpg' %}"/>
+	</div>
+	
+	<div class = "form">
+		<form name="input_link" action= "{% url "output" %}" method="GET"><br>
+			<label style="color:#fb2056">Invalid url</label><br>
+			<input type="search" name="search" id="search"><br>
+			<input type="submit" class="button" name="lucky" value="Simple Summary">
+			<input type="submit" class="button" name="submit" value="Grade Policies	">
+		</form>
+	</div>
+
+</div>
+</body>
+</html>
